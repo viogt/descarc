@@ -60,9 +60,10 @@ public class checkZip {
             System.err.println("An error occurred: " + e.getMessage());
         }
 
-        Path tempZipPath = Files.createTempFile("modified", ".xlsx");
+        //Path tempZipPath = Files.createTempFile("modified", ".xlsx");
+        Data.tempZipPath = Files.createTempFile("modified", ".xlsx");
 
-        try (ZipOutputStream zos = new ZipOutputStream(Files.newOutputStream(tempZipPath))) {
+        try (ZipOutputStream zos = new ZipOutputStream(Files.newOutputStream(Data.tempZipPath))) {
             for (Map.Entry<String, byte[]> entry : entries.entrySet()) {
                 String entryName = entry.getKey();
                 byte[] content = entry.getValue();
@@ -76,7 +77,7 @@ public class checkZip {
         }
 
         // --- REPLACE ORIGINAL ARCHIVE
-        Files.move(tempZipPath, Paths.get("unlocked.xlsx").toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
+        Files.move(Data.tempZipPath, Paths.get("unlocked.xlsx").toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
         System.out.println("Saved: " + Paths.get("unlocked.xlsx").toAbsolutePath().toString());
         printReport();
     }

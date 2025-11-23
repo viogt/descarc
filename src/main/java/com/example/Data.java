@@ -3,6 +3,7 @@ package com.example;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
@@ -12,6 +13,8 @@ import io.javalin.http.UploadedFile;
 import java.io.FileInputStream;
 
 public class Data {
+
+    public static Path tempZipPath;
 
     public static void upload(Context ctx) {
         UploadedFile uploadedFile = ctx.uploadedFile("myFile");
@@ -58,7 +61,8 @@ public class Data {
         ctx.contentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         ctx.header("Content-Disposition", "attachment; filename=\"" + fileToDownload.getName() + "\"");
         ctx.header("Content-Length", String.valueOf(fileToDownload.length()));
-        if (fileToDownload.exists()) ctx.result(new FileInputStream(fileToDownload));
-        else ctx.status(404).result("File not found.");
+        /*if (fileToDownload.exists()) ctx.result(new FileInputStream(fileToDownload));
+        else ctx.status(404).result("File not found.");*/
+        ctx.result(new FileInputStream(tempZipPath.toFile()));
     }
 }
