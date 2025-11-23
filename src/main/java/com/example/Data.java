@@ -3,6 +3,7 @@ package com.example;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import io.javalin.http.ContentType;
@@ -47,7 +48,12 @@ public class Data {
     }
 
     public static void downloadFile(Context ctx) throws Exception {
-        File fileToDownload = new File("unlocked.xlsx");
+        
+        File fileToDownload = new File(Paths.get("unlocked.xlsx").toString());
+        if(!fileToDownload.exists()) {
+            ctx.result("File "+ fileToDownload.getPath() +" doesn't exist.");
+            return;
+        }
         ctx.contentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         ctx.header("Content-Disposition", "attachment; filename=\"" + fileToDownload.getName() + "\"");
         ctx.header("Content-Length", String.valueOf(fileToDownload.length()));
