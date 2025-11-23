@@ -40,3 +40,6 @@ public/generated/
 .env
 *.key
 *.pem
+
+unlocked.xlsx
+original.xlsx
