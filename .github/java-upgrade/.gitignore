@@ -1,0 +1,42 @@
+############################
+# Maven
+############################
+/target/
+/pom.xml.tag
+/pom.xml.releaseBackup
+/pom.xml.versionsBackup
+/logs/
+*.log
+
+############################
+# Java
+############################
+*.class
+*.jar
+*.war
+*.ear
+
+############################
+# VS Code
+############################
+.vscode/
+
+############################
+# OS Files
+############################
+# macOS
+.DS_Store
+
+############################
+# Javalin / Web Dev Extras
+############################
+# If using embedded static files during development
+/public/uploads/
+public/generated/
+
+############################
+# Environment / Secrets
+############################
+.env
+*.key
+*.pem
