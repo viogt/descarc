@@ -26,13 +26,14 @@ public class checkZip {
         Rprt += "</table><br><a href='/download'>Download unlocked file</a>";
     }
 
-    public static void replaceFileInArchive(Path inputZipPath) throws IOException {
+    public static void replaceFileInArchive(InputStream inputZipPath) throws IOException {
 
         String sheetRegex = "^xl/worksheets/sheet\\d+\\.xml$";
         hasProtection = false;
         Map<String, byte[]> entries = new HashMap<>();
 
-        try (ZipInputStream zis = new ZipInputStream(Files.newInputStream(inputZipPath))) {
+        //try (ZipInputStream zis = new ZipInputStream(Files.newInputStream(inputZipPath))) {
+        try (ZipInputStream zis = new ZipInputStream(inputZipPath)) {
             ZipEntry entry;
             while ((entry = zis.getNextEntry()) != null) {
 
@@ -60,7 +61,7 @@ public class checkZip {
             System.err.println("An error occurred: " + e.getMessage());
         }
 
-        Path tempZipPath = Files.createTempFile("modified", ".xlsx");
+        //Path tempZipPath = Files.createTempFile("modified", ".xlsx");
      
         //try (ZipOutputStream zos = new ZipOutputStream(Files.newOutputStream(Data.tempZipPath))) {
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -79,7 +80,7 @@ public class checkZip {
         }
 
         // --- REPLACE ORIGINAL ARCHIVE
-        Files.move(tempZipPath, Paths.get("unlocked.xlsx").toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
+        //Files.move(tempZipPath, Paths.get("unlocked.xlsx").toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
         System.out.println("Saved: " + Paths.get("unlocked.xlsx").toAbsolutePath().toString());
         printReport();
     }

@@ -1,16 +1,16 @@
 package com.example;
 
-import java.io.File;
+//import java.io.File;
 import java.io.InputStream;
-import java.nio.file.Files;
+/*import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardCopyOption;*/
 
 import io.javalin.http.ContentType;
 import io.javalin.http.Context;
 import io.javalin.http.UploadedFile;
-import java.io.FileInputStream;
+//import java.io.FileInputStream;
 
 public class Data {
 
@@ -26,13 +26,14 @@ public class Data {
         System.out.println("File uploaded: " + uploadedFile.filename());
 
         // File destination = new File("uploads_" + uploadedFile.filename());
-        File destination = new File("original.xlsx");
+        //File destination = new File("original.xlsx");
         try (InputStream inputStream = uploadedFile.content()) {
 
-            System.out.println("And saved as " + destination.toPath());
+            /*System.out.println("And saved as " + destination.toPath());
             Files.copy(inputStream, destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            checkZip.replaceFileInArchive(destination.toPath());*/
 
-            checkZip.replaceFileInArchive(destination.toPath());
+            checkZip.replaceFileInArchive(inputStream);
 
             /*ctx.result("File <u>" + uploadedFile.filename() + "</u> (" + uploadedFile.size() + " bytes, "
                     + uploadedFile.contentType() + ") <font color='darkgreen'>uploaded successfully!</font><br><a href='/download'>Download unlocked file</a>");*/
