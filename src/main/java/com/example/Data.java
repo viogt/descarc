@@ -14,7 +14,7 @@ import java.io.FileInputStream;
 
 public class Data {
 
-    public static Path tempZipPath;
+    public static byte[] zipBytes;
 
     public static void upload(Context ctx) {
         UploadedFile uploadedFile = ctx.uploadedFile("myFile");
@@ -52,7 +52,7 @@ public class Data {
 
     public static void downloadFile(Context ctx) throws Exception {
         
-        File fileToDownload = new File(Paths.get("unlocked.xlsx").toAbsolutePath().toString());
+        /*File fileToDownload = new File(Paths.get("unlocked.xlsx").toAbsolutePath().toString());
         System.out.println("Download requested: " + fileToDownload.getPath());
         if(!fileToDownload.exists()) {
             ctx.result("File "+ fileToDownload.getPath() +" doesn't exist.");
@@ -63,6 +63,10 @@ public class Data {
         ctx.header("Content-Length", String.valueOf(fileToDownload.length()));
         /*if (fileToDownload.exists()) ctx.result(new FileInputStream(fileToDownload));
         else ctx.status(404).result("File not found.");*/
-        ctx.result(new FileInputStream(tempZipPath.toFile()));
+
+        ctx.contentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        ctx.header("Content-Disposition", "attachment; filename=\"unlocked.xlsx\"");
+        ctx.header("Content-Length", String.valueOf(zipBytes.length));
+        ctx.result(zipBytes);    
     }
 }
