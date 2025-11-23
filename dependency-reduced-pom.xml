@@ -46,6 +46,7 @@
                 <transformer>
                   <mainClass>com.example.App</mainClass>
                 </transformer>
+                <transformer />
               </transformers>
               <finalName>app</finalName>
             </configuration>

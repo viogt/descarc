@@ -62,7 +62,8 @@
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-shade-plugin</artifactId>
-            <version>3.5.1</version> <executions>
+            <version>3.5.1</version> 
+            <executions>
                 <execution>
                     <phase>package</phase>
                     <goals>
@@ -71,10 +72,11 @@
                     <configuration>
                         <transformers>
                             <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                <mainClass>com.example.App</mainClass>
+                                <mainClass>com.example.App</mainClass> 
                             </transformer>
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                         </transformers>
-                        <finalName>app</finalName>
+                        <finalName>app</finalName> 
                     </configuration>
                 </execution>
             </executions>
