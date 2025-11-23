@@ -22,7 +22,7 @@ WORKDIR /usr/app
 
 # Copy the executable JAR from the 'builder' stage
 # Adjust the path '/app/target/*.jar' to match your build output
-COPY --from=builder /app/target/*.jar /usr/app/app.jar
+COPY --from=builder /app/target/app.jar /usr/app/app.jar
 
 # Informational port exposure (Javalin must read Render's PORT environment variable)
 EXPOSE 7000
