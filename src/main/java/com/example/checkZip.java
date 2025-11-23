@@ -76,8 +76,8 @@ public class checkZip {
         }
 
         // --- REPLACE ORIGINAL ARCHIVE
-        Files.move(tempZipPath, Paths.get("unlocked.xlsx"), StandardCopyOption.REPLACE_EXISTING);
-        //System.out.println("File replacement complete. Original archive updated.");
+        Files.move(tempZipPath, Paths.get("unlocked.xlsx").toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
+        System.out.println("Saved: " + Paths.get("unlocked.xlsx").toAbsolutePath().toString());
         printReport();
     }
 }

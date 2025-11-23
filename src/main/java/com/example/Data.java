@@ -49,7 +49,8 @@ public class Data {
 
     public static void downloadFile(Context ctx) throws Exception {
         
-        File fileToDownload = new File(Paths.get("unlocked.xlsx").toString());
+        File fileToDownload = new File(Paths.get("unlocked.xlsx").toAbsolutePath().toString());
+        System.out.println("Download requested: " + fileToDownload.getPath());
         if(!fileToDownload.exists()) {
             ctx.result("File "+ fileToDownload.getPath() +" doesn't exist.");
             return;
