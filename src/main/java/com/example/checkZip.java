@@ -1,11 +1,10 @@
 package com.example;
 
 import java.io.*;
-import java.nio.file.*;
+//import java.nio.file.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.*;
-import java.nio.charset.StandardCharsets;
 
 public class checkZip {
 
@@ -44,14 +43,13 @@ public class checkZip {
                 }
 
                 byte[] content = zis.readAllBytes();
-                String fullString = new String(content, StandardCharsets.UTF_8);
+                //String fullString = new String(content, StandardCharsets.UTF_8);
 
                 if (entryName.equals("xl/workbook.xml")) {
-                    content = checkXML.checkBook(fullString);
+                    content = checkXML.checkBook(content);
                     entries.put(entryName, content);
-
                 } else if (entryName.matches(sheetRegex)) {
-                    content = checkXML.checkSheet(entryName, fullString);
+                    content = checkXML.checkSheet(entryName, content);
                     entries.put(entryName, content);
                 } else {
                     entries.put(entryName, content);
@@ -64,6 +62,7 @@ public class checkZip {
         //Path tempZipPath = Files.createTempFile("modified", ".xlsx");
      
         //try (ZipOutputStream zos = new ZipOutputStream(Files.newOutputStream(Data.tempZipPath))) {
+        if(hasProtection)
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
              ZipOutputStream zos = new ZipOutputStream(baos)) {
             for (Map.Entry<String, byte[]> entry : entries.entrySet()) {
@@ -81,7 +80,7 @@ public class checkZip {
 
         // --- REPLACE ORIGINAL ARCHIVE
         //Files.move(tempZipPath, Paths.get("unlocked.xlsx").toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
-        System.out.println("Saved: " + Paths.get("unlocked.xlsx").toAbsolutePath().toString());
+        //System.out.println("Saved: " + Paths.get("unlocked.xlsx").toAbsolutePath().toString());
         printReport();
     }
 }

@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;*/
+import java.io.OutputStream;
 
 import io.javalin.http.ContentType;
 import io.javalin.http.Context;
@@ -65,9 +66,11 @@ public class Data {
         /*if (fileToDownload.exists()) ctx.result(new FileInputStream(fileToDownload));
         else ctx.status(404).result("File not found.");*/
 
-        ctx.contentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        ctx.contentType("application/octet-stream");
         ctx.header("Content-Disposition", "attachment; filename=\"unlocked.xlsx\"");
-        ctx.header("Content-Length", String.valueOf(zipBytes.length));
-        ctx.result(zipBytes);    
+        int contentLength = zipBytes.length;
+        System.out.println("Download requested: unlocked.xlsx (" + contentLength + " bytes)");
+        ctx.header("Content-Length", String.valueOf(contentLength));
+        ctx.status(200).result(zipBytes);
     }
 }

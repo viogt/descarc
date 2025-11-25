@@ -9,13 +9,14 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 
 public class checkXML {
 
-    private static Document parseXmlString(String xmlString) throws Exception {
+    private static Document parseXmlString(byte[] cnt) throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        return builder.parse(new InputSource(new StringReader(xmlString)));
+        return builder.parse(new InputSource(new StringReader(new String(cnt, StandardCharsets.UTF_8))));
     }
 
     private static void removeNode(Node n) {
@@ -45,8 +46,8 @@ public class checkXML {
         checkZip.report[ix][2] = vl;
     }
 
-    public static byte[] checkSheet(String xmlName, String xmlString) throws Exception {
-        Document doc = parseXmlString(xmlString);
+    public static byte[] checkSheet(String xmlName, byte[] cnt) throws Exception {
+        Document doc = parseXmlString(cnt);
         NodeList itemList = doc.getElementsByTagName("sheetProtection");
         if (itemList.getLength() > 0) {
             inReport(xmlName, "<b>Protected</b>");
@@ -58,8 +59,8 @@ public class checkXML {
         return modifiedXml.getBytes("UTF-8");
     }
 
-    public static byte[] checkBook(String xmlString) throws Exception {
-        Document doc = parseXmlString(xmlString);
+    public static byte[] checkBook(byte[] cnt) throws Exception {
+        Document doc = parseXmlString(cnt);
         NodeList itemList = doc.getElementsByTagName("workbookProtection");
         if (itemList.getLength() > 0) {
             System.out.println("> WorkbookProtection found and removed.");
