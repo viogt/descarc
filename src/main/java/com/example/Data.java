@@ -6,7 +6,8 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;*/
-import java.io.OutputStream;
+//import java.io.OutputStream;
+import java.io.ByteArrayInputStream;
 
 import io.javalin.http.ContentType;
 import io.javalin.http.Context;
@@ -71,6 +72,7 @@ public class Data {
         int contentLength = zipBytes.length;
         System.out.println("Download requested: unlocked.xlsx (" + contentLength + " bytes)");
         ctx.header("Content-Length", String.valueOf(contentLength));
-        ctx.status(200).result(zipBytes);
+        //ctx.status(200).result(zipBytes);
+        ctx.status(200).result(new ByteArrayInputStream(zipBytes));
     }
 }
