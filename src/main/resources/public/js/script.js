@@ -7,7 +7,7 @@ async function uploadFile() {
     messageElement.innerHTML = "<font color='red'>Please select an .XLSX file.</font>";
     return;
   }*/
-  messageElement.innerHTML = "<span class='loader'></span> Processing...";
+  messageElement.innerHTML = "<span class='loader'></span>&nbsp;&nbsp;Processing...";
 
   const formData = new FormData();
   formData.append("myFile", file);
@@ -18,7 +18,10 @@ async function uploadFile() {
       body: formData,
     });
 
-    if (response.ok) messageElement.innerHTML = await response.text();
+    if (response.ok) {
+      messageElement.innerHTML = await response.text();
+      window.scroll({top: document.body.scrollHeight, behavior: 'smooth' });
+    }
     else {
       const errorText = await response.text();
       messageElement.textContent = `Upload failed: ${response.status} - ${errorText}`;
