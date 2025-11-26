@@ -37,10 +37,10 @@ public class checkZip {
             while ((entry = zis.getNextEntry()) != null) {
 
                 String entryName = entry.getName();
-                if (entry.isDirectory()) {
+                /*if (entry.isDirectory()) {
                     entries.put(entryName, null);
                     continue;
-                }
+                }*/
 
                 byte[] content = zis.readAllBytes();
                 //String fullString = new String(content, StandardCharsets.UTF_8);
@@ -71,10 +71,12 @@ public class checkZip {
 
                 ZipEntry newEntry = new ZipEntry(entryName);
                 zos.putNextEntry(newEntry);
-                if (content != null)
-                    zos.write(content);
+                //if (content != null)
+                zos.write(content);
                 zos.closeEntry();
             }
+            zos.finish();
+            zos.close();
             Data.zipBytes = baos.toByteArray();
         }
 
