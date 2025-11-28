@@ -21,8 +21,7 @@ input[type="file"] {
 }
 .loader {
   width: 1em;
-  /*height: 18px;*/
-  aspect-ratio: 1;
+  height: 1em;
   border: 2px solid currentColor;
   border-bottom-color: transparent;
   border-radius: 50%;
